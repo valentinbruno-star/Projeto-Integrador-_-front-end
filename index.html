@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Achados e Perdidos Escolar</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Achados e Perdidos - Painel Escolar</h1>
+    </header>
+    <nav>
+        <a href="index.html">Ver Itens</a>
+        <a href="telas/cadastrar.html">Registrar Item</a>
+        <a href="telas/chatbot.html">Conversar com o Bot 🤖</a>
+    </nav>
+    <div class="container">
+        <h2 style="margin-bottom: 1.5rem;">Itens Registrados Recentemente</h2>
+        <div class="grid" id="itemsGrid"></div>
+    </div>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        async function loadDashboard() {
+            const grid = document.getElementById('itemsGrid');
+            const items = await fetchItems();
+            grid.innerHTML = items.map(item => `
+                <div class="card">
+                    <span class="badge ${item.tipo}">${item.tipo}</span>
+                    <h3>${item.nome}</h3>
+                    <p style="font-size:0.85rem; color:#64748b; margin: 0.4rem 0;">📍 <strong>Local:</strong> ${item.local}</p>
+                    <p>${item.descricao}</p>
+                </div>
+            `).join('');
+        }
+        loadDashboard();
+    </script>
+</body>
+</html>
